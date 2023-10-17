@@ -1,0 +1,95 @@
+$c-main:#26577C;
+$c-light: #EBE4D1;
+$c-dark:#333;
+$c-under:#E55604;
+$l-margin: 35%;
+$gridmarks:300px 250px 450px 200px;
+
+.landing{
+
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 115%;
+    min-height: 93vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background:black;
+    transition: all 0.3s ease;
+    video{
+        position: absolute;
+        width: 100%;    
+        opacity: 0.25;
+    }
+}
+.landingtext{
+    position: relative;
+    margin-left: $l-margin;
+    h2{
+        color: $c-under;
+        font-size: 40px;
+        font-weight: 800;
+        margin-bottom: 0;
+    }
+    h3{
+        font-size: 30px;
+        font-weight: 600;
+        padding-top: 0;
+        margin-top: 0;
+        color: $c-light;
+    }
+    ul{
+        color: $c-light;
+    }
+    
+    .buttona{
+        background-color: $c-main;
+        border:none;
+        color: $c-light;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 20px;
+        cursor: pointer;
+        transition: background-color 2s ease-out 100ms;
+        &:hover{
+            background-color: #e37177;
+        }
+    }
+}
+.navigation{
+    overflow: hidden;
+    background-color: #333;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+
+    a {
+        float: left;
+        color: $c-light;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        &:hover{
+            background-color: $c-light;
+            color: $c-dark;
+        }
+    }
+    .active{
+        background-color: $c-main;
+        color: $c-light;
+    }
+    .right{
+        position: absolute;
+        right: 2%;
+        right: 2%;
+        text-align: right;
+    }
+    
+}
