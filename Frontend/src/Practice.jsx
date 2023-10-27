@@ -25,15 +25,14 @@ export default function Practice() {
                 <Button size="large" variant="outlined">Live Video</Button>
             </Grid>
             <Grid xs={5} md={6}>
-                  <Button size="large" variant="outlined">Results</Button>
+                <Button size="large" variant="outlined">Results</Button>
             </Grid>
             <Grid xs={5} md={6}>
-                  <Button size="large" variant="outlined">Feedback</Button>
+                <Button size="large" variant="outlined">Feedback</Button>
             </Grid>
             <Grid xs={5} md={12}>
-                  <Button size="large" variant="outlined">Back to Training Page</Button>
+                <Button size="large" variant="outlined">Back to Training Page</Button>
             </Grid>
-
         </Grid>
         </Box>
 
