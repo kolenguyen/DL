@@ -9,7 +9,8 @@ from serializers import UserSerializer, ma
 from marshmallow import ValidationError
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token, get_jwt, unset_jwt_cookies
+import redis
 
 #initialize app and configurate based on config.py
 #config.py is based on .flaskenv
@@ -24,6 +25,10 @@ migrate = Migrate(app,db)
 
 # ma = Marshmallow(app)
 jwt=JWTManager(app)
+jwt_redis_blocklist = redis.StrictRedis(
+    host="localhost", port=8000, db=0, decode_responses=True
+)
+revoked_tokens = set()
 bcrypt = Bcrypt(app)
 api = Api(app)
 CORS(app)
@@ -81,7 +86,7 @@ def login():
     
     if check_password_hash(user.password,password):
         access_token = create_access_token(identity=user.id)
-        return jsonify({'message':'Login succesful', 'access_token': access_token}), 200
+        return jsonify({'message':'Login succesfully', 'access_token': access_token}), 200
     else: 
         return jsonify({'message':'Invalid password'}), 401
    
@@ -89,5 +94,16 @@ def login():
 @app.route('/protected', methods=['GET'])
 @jwt_required()
 def protected():
-    current_user_id = get_jwt_identity()
-    return jsonify({'message':'Testing authentication', 'user_id': current_user_id})
+    jti = get_jwt()['jti']
+    if jti in revoked_tokens:
+        return jsonify({'message':'Token revoked'}), 401
+    return jsonify({'message':'Testing authentication', 'user_id': jti})
+
+@app.route('/logout',methods=['POST'])
+@jwt_required()
+def logout():
+    jti = get_jwt()['jti']
+    revoked_tokens.add(jti)
+    # jwt_redis_blocklist.set(jti,"",ex=1800)
+    # unset_jwt_cookies()
+    return jsonify({'message':'Logout succesfully'})
