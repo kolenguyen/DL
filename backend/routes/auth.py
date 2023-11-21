@@ -3,11 +3,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token,jwt_required, get_jwt
 from ..models.user import User
 from ..models import db
-from ..serializers import UserSerializer
+from serializers import UserSerializer
 from marshmallow import ValidationError
+#base code for this is used from Kole's branch
 
 revoked_tokens = set()
-
 auth_blueprint = Blueprint('auth', __name__)
 
 @auth_blueprint.route('/register', methods=['POST'])
@@ -16,8 +16,6 @@ def register():
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
-
-    # Check if user already exists
     if User.query.filter((User.username == username) | (User.email == email)).first():
         return jsonify({'message': 'User already exists'}), 409
 
