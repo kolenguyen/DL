@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token,jwt_required, get_jwt
 from ..models.user import User
-from ..models import db
+from .. import db
 from .serializers import UserSerializer
 from marshmallow import ValidationError
 #base code for this is used from Kole's branch

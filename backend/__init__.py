@@ -2,10 +2,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 
-from routes.user import user_blueprint
-from routes.auth import auth_blueprint
-from routes.practice import practice_blueprint
-from routes.training import training_blueprint
+
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 
 def create_app():
@@ -18,9 +18,14 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Initialize components
-    db.init_app(app)
+    
     jwt = JWTManager(app)
+    db.init_app(app)
 
+    from .routes.user import user_blueprint
+    from .routes.auth import auth_blueprint
+    from .routes.practice import practice_blueprint
+    from .routes.training import training_blueprint
    
     app.register_blueprint(user_blueprint, url_prefix='/user')
     app.register_blueprint(auth_blueprint, url_prefix='/auth')

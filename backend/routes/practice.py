@@ -13,7 +13,7 @@ def upload_video():
         return jsonify({"message": "No file part"}), 400
 
     file = request.files['file']
-    if file.filename == '':
+    if file.filename == '': 
         return jsonify({"message": "No selected file"}), 400
 
     if file:  # Here, you can add file type checking logic
@@ -40,12 +40,11 @@ def post_feedback():
     if not feedback_data:
         return jsonify({"message": "Feedback content is required"}), 400
 
-    # Fetch the latest history record for the user or create a new one
+
     history = History.query.filter_by(user_id=user.id).order_by(History.id.desc()).first()
     if history:
-        history.field = feedback_data  # Update the field with feedback
+        history.field = feedback_data  # Update the field with feedback to save in history table
     else:
-        # Create a new history entry if no history exists for the user
         new_history = History(user_id=user.id, progress="Feedback", field=feedback_data)
         db.session.add(new_history)
 

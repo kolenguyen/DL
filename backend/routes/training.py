@@ -3,9 +3,9 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
 import os
 
-practice_blueprint = Blueprint('practice', __name__)
+training_blueprint = Blueprint('practice', __name__)
 
-@practice_blueprint.route('/upload', methods=['POST'])
+@training_blueprint.route('/upload', methods=['POST'])
 @jwt_required()
 def upload_video():
     username = get_jwt_identity()
