@@ -1,0 +1,3 @@
+[console_scripts]
+benchmark_app = openvino.tools.benchmark.main:main
+ovc = openvino.tools.ovc.main:main
