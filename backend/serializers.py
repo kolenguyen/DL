@@ -2,8 +2,8 @@ from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 
-from models import User
-
+# from .usemodels.user import User
+from .models.user import User
 ma = Marshmallow()
 
 class UserSerializer(ma.SQLAlchemyAutoSchema):

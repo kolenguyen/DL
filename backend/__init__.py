@@ -1,24 +1,20 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
-
-
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-
 
 def create_app():
     app = Flask(__name__)
 
     # Configurations
     app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Change this!
-    app.config['UPLOAD_FOLDER'] = '/path/to/upload_folder'  # Specify the upload folder path
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'your_database_uri'  # Set your database URI
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # app.config['UPLOAD_FOLDER'] = '/path/to/upload_folder'  # Specify the upload folder path
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     # Initialize components
-    
     jwt = JWTManager(app)
     db.init_app(app)
 
