@@ -22,8 +22,9 @@
   margin-left: 35%;
 }
 .landingtext h2 {
-  color: #E55604;
-  font-size: 40px;
+  color: #94D2BD;
+ 
+  font-size: 100px;
   font-weight: 800;
   margin-bottom: 0;
 }
@@ -32,10 +33,10 @@
   font-weight: 600;
   padding-top: 0;
   margin-top: 0;
-  color: #EBE4D1;
+  color: #94D2BD;
 }
 .landingtext ul {
-  color: #EBE4D1;
+  color: #edf6f9;
 }
 .landingtext .buttona {
   background-color: #26577C;
