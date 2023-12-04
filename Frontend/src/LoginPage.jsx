@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import LoginForm from './LoginForm';
@@ -6,9 +6,32 @@ import Grid from '@mui/material/Grid'; // Import Grid to center the form
 import Paper from '@mui/material/Paper'; // Import Paper for the background square
 
 const LoginPage = () => {
-  const handleLogin = (credentials) => {
-    // Handle authentication logic here (e.g., send a request to the server)
-    console.log('Login credentials:', credentials);
+  const [loginError, setLoginError] = useState('');
+
+  const handleLogin = async (credentials) => {
+    try {
+      console.log(credentials)
+      // Simulate a request to the server for authentication
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      if (!response.ok) {
+        throw new Error('Invalid credentials');
+      }
+
+      // If authentication is successful, you can redirect or perform other actions
+      console.log('Login successful!');
+      setLoginError('');
+    } catch (error) {
+      // Handle authentication error
+      console.error('Authentication error:', error.message);
+      setLoginError('Invalid username or password');
+    }
   };
 
   return (
@@ -19,7 +42,7 @@ const LoginPage = () => {
             Login
           </Typography>
         </Grid>
-        <LoginForm handleLogin={handleLogin} />
+        <LoginForm handleLogin={handleLogin} loginError={loginError} />
       </Paper>
 
     </Container>
