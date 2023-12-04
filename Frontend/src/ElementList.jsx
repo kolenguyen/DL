@@ -4,10 +4,12 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: 'grey', // Background color
+    backgroundColor: '#26577C', // Background color
     padding: theme.spacing(2), // Add some padding
     borderRadius: '8px', // Rounded corners
     width: 310,
+    color: '#EBE4D1',
+
   },
   button: {
     margin: theme.spacing(4),
@@ -19,23 +21,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialElements = [
-  'Element 1',
-  'Element 2',
-  'Element 3',
-  'Element 4',
-  'Element 5',
-  'Element 6',
-  'Element 7',
+  {title:"Lesson 1",url:"https://www.youtube.com/embed/jCUaMdXsI7w?si=i7lWqrLC2gP6tICo"},
+  {title:"Lesson 2",url:"https://www.youtube.com/embed/7suKo9kCTus?si=5Yr1Wp-tHmPpygFZ"},
 ];
 
-const ElementList = () => {
+const ElementList = ({ onItemClicked }) => {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredElements, setFilteredElements] = useState(initialElements);
 
   const handleSearch = () => {
     const filtered = initialElements.filter(element =>
-      element.toLowerCase().includes(searchTerm.toLowerCase())
+      element.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredElements(filtered);
   };
@@ -43,6 +40,9 @@ const ElementList = () => {
   const handleReset = () => {
     setSearchTerm('');
     setFilteredElements(initialElements);
+  };
+  const handleItemClick = (url) => {
+    onItemClicked(url);
   };
 
   return (
@@ -72,8 +72,8 @@ const ElementList = () => {
       </Button>
       <List>
         {filteredElements.map((element, index) => (
-          <ListItem key={index}>
-            <ListItemText primary={element} />
+          <ListItem key={index} button onClick={() => handleItemClick(element.url)}>
+            <ListItemText primary={element.title} />
           </ListItem>
         ))}
       </List>

@@ -6,12 +6,37 @@ import Button from '@mui/material/Button';
 
 const VideoUpload = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadResults, setUploadResults] = useState(null);
 
   const onDrop = (acceptedFiles) => {
     setUploadedFiles(acceptedFiles);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'video/*' });
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: ['video/*', 'image/*'], 
+  });
+
+   const handleUpload = () => {
+    const formData = new FormData();
+    uploadedFiles.forEach((file) => {
+      formData.append('files', file);
+    });
+
+    fetch('https://localhost/upload', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Upload success:', data);
+        setUploadResults(data);
+      })
+      .catch((error) => {
+        console.error('Upload error:', error);
+        setUploadResults(null);
+      });
+  };
 
   return (
     <div>
@@ -19,7 +44,7 @@ const VideoUpload = () => {
         <div {...getRootProps()} style={{ cursor: 'pointer', padding: '20px', border: '2px dashed #ccc' }}>
           <input {...getInputProps()} />
           <Typography variant="body1" color="textSecondary">
-            Drag & Drop or click to upload videos
+            Drag & Drop or click to upload video or image
           </Typography>
         </div>
         {uploadedFiles.length > 0 && (
@@ -34,10 +59,14 @@ const VideoUpload = () => {
             </ul>
           </div>
         )}
+         <Button variant="contained" color="primary" onClick={handleUpload}>
+          Analize
+        </Button>
         <Button variant="contained" color="primary" onClick={() => setUploadedFiles([])}>
           Clear
         </Button>
       </Paper>
+      {uploadResults&& <Results data={uploadResults}/>}
     </div>
   );
 };

@@ -27,6 +27,7 @@ const LoginPage = () => {
       // If authentication is successful, you can redirect or perform other actions
       console.log('Login successful!');
       setLoginError('');
+      history.push('/training');
     } catch (error) {
       // Handle authentication error
       console.error('Authentication error:', error.message);
