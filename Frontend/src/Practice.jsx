@@ -16,9 +16,22 @@ import Training from './Training';
 
 export default function Practice() {  
     const [currentComponent, setCurrentComponent] = useState('upload');
-    const handleButtonClick = (component) => {
-        setCurrentComponent(component);
-      };
+    // const handleButtonClick = async(component) => {
+    //     setCurrentComponent(component);
+
+    //     if(component){
+    //         const formData = new FormData();
+    //         formData.append('image', selectedFile);
+    //         const response = await fetch("http://127.0.0.1:5000/practice/upload", {
+    //             method: 'POST',
+    //             body: formData
+    //         })
+
+    //         if (!response.ok) {
+    //             throw new Error('Invalid credentials');
+    //           }
+    //     }
+    //   };
 
     return (
     <div style={{margin: 0}}>

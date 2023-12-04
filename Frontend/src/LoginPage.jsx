@@ -12,7 +12,8 @@ const LoginPage = () => {
     try {
       console.log(credentials)
       // Simulate a request to the server for authentication
-      const response = await fetch('/api/login', {
+      // this is from port 5000 not 3000
+      const response = await fetch('http://127.0.0.1:5000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,6 +28,7 @@ const LoginPage = () => {
       // If authentication is successful, you can redirect or perform other actions
       console.log('Login successful!');
       setLoginError('');
+      //did not work
       history.push('/training');
     } catch (error) {
       // Handle authentication error

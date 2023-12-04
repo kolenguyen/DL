@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 const Results = ({ data }) => {
-  if (!data || !data.result) {
+  if (!data) {
     return <div>No results available</div>;
   }
 
@@ -18,7 +18,7 @@ const Results = ({ data }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Result</TableCell>
+              <TableCell>{data}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

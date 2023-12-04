@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Results from './Results';
 
 const VideoUpload = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -20,17 +21,21 @@ const VideoUpload = () => {
    const handleUpload = () => {
     const formData = new FormData();
     uploadedFiles.forEach((file) => {
-      formData.append('files', file);
+      formData.append('file', file);
     });
 
-    fetch('https://localhost/upload', {
+    fetch('http://127.0.0.1:5000/practice/upload', {
       method: 'POST',
       body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
         console.log('Upload success:', data);
-        setUploadResults(data);
+        console.log('Upload success:', data['message']);
+        // uploadResults=data['message'];
+        const d = data['message'];
+        setUploadResults(d);
+        // console.log(uploadResults);
       })
       .catch((error) => {
         console.error('Upload error:', error);
@@ -66,7 +71,9 @@ const VideoUpload = () => {
           Clear
         </Button>
       </Paper>
-      {uploadResults&& <Results data={uploadResults}/>}
+      {/* iisue */}
+      { <Results data={uploadResults}/>}
+      {/* {uploadResults} */}
     </div>
   );
 };

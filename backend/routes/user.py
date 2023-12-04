@@ -7,7 +7,7 @@ from .. import db
 user_blueprint = Blueprint('user', __name__)
 
 @user_blueprint.route('/profile', methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_user_details():
     username = get_jwt_identity()
     user = User.query.filter_by(username=username).first()
@@ -17,7 +17,7 @@ def get_user_details():
         return jsonify({"message": "User not found"}), 404
 
 @user_blueprint.route('/update/name', methods=['PUT'])
-@jwt_required()
+# @jwt_required()
 def update_user_name():
     username = get_jwt_identity()
     user = User.query.filter_by(username=username).first()
@@ -33,7 +33,7 @@ def update_user_name():
     return jsonify({"message": "Username updated successfully"})
 
 @user_blueprint.route('/update/password', methods=['PUT'])
-@jwt_required()
+# @jwt_required()
 def update_password():
     username = get_jwt_identity()
     user = User.query.filter_by(username=username).first()
@@ -53,7 +53,7 @@ def update_password():
     return jsonify({"message": "Password updated successfully"})
 
 @user_blueprint.route('/update/email', methods=['PUT'])
-@jwt_required()
+# @jwt_required()
 def update_email():
     username = get_jwt_identity()
     user = User.query.filter_by(username=username).first()

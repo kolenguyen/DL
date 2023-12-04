@@ -57,8 +57,6 @@ def login():
     print(password)
 
     user = User.query.filter_by(username=username).first()
-    print(user.username)
-    print(user.password)
     print(check_password_hash(user.password, password))
     if user and check_password_hash(user.password, password):
         access_token = create_access_token(identity=username)
@@ -67,7 +65,7 @@ def login():
     return response, 401
 
 @auth_blueprint.route('/logout', methods=['POST'])
-@jwt_required()
+# @jwt_required()
 def logout():
     jti = get_jwt()['jti']  # Get the unique identifier of the JWT
     revoked_tokens.add(jti)  # Add it to the set of revoked tokens
