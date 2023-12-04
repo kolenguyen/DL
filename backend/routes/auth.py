@@ -6,9 +6,11 @@ from .. import db
 from ..serializers import UserSerializer
 from marshmallow import ValidationError
 #base code for this is used from Kole's branch
+from flask_cors import CORS, cross_origin
 
 revoked_tokens = set()
 auth_blueprint = Blueprint('auth', __name__)
+CORS(auth_blueprint, resources={r"/*": {"origins": "http://127.0.0.1:3000"}})
 
 @auth_blueprint.route('/register', methods=['POST'])
 def register():
@@ -27,9 +29,18 @@ def register():
 
     return jsonify({'message': 'User registered successfully'}), 201
 
-@auth_blueprint.route('/login', methods=['POST'])
+
+@cross_origin(origin='http://127.0.0.1:3000', headers=['Content-Type', 'Authorization'])
+@auth_blueprint.route('/login', methods=['POST','OPTIONS'])
 def login():
+    if request.method == 'OPTIONS':
+        # Handle preflight request
+        response = jsonify({"test": "test"})
+        response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+        return response,200
     data = request.get_json()
+
     loginSerializer = UserSerializer(only=("username", "password"))
 
     try:
@@ -42,16 +53,18 @@ def login():
     
     username = loginData.get('username')
     password = data.get('password')
+    print(username)
+    print(password)
 
     user = User.query.filter_by(username=username).first()
+    print(user.username)
+    print(user.password)
+    print(check_password_hash(user.password, password))
     if user and check_password_hash(user.password, password):
         access_token = create_access_token(identity=username)
         return jsonify({'access_token': access_token}), 200
-
-    return jsonify({'message': 'Invalid username or password'}), 401
-
-
-
+    response = jsonify(data)
+    return response, 401
 
 @auth_blueprint.route('/logout', methods=['POST'])
 @jwt_required()
