@@ -23,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
 const initialElements = [
   {title:"Lesson 1",url:"https://www.youtube.com/embed/jCUaMdXsI7w?si=i7lWqrLC2gP6tICo"},
   {title:"Lesson 2",url:"https://www.youtube.com/embed/7suKo9kCTus?si=5Yr1Wp-tHmPpygFZ"},
+  {title:"Lesson 3",url:"https://www.youtube.com/embed/qa9qSPsj840?si=iTHnZzc8om3cAPrA"},
+  {title:"Lesson 4",url:"https://www.youtube.com/embed/ghQr2hzdx8k?si=5-GRQP-nlOdqmny3"},
+  {title:"Lesson 5",url:"https://www.youtube.com/embed/mqG8sWoOsBQ?si=AKtyGgZssVbvDXxM"},
+  {title:"Lesson 6",url:"https://www.youtube.com/embed/7suKo9kCTus?si=5Yr1Wp-tHmPpygFZ"},
+
 ];
 
 const ElementList = ({ onItemClicked }) => {
