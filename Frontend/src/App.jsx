@@ -5,6 +5,7 @@ import Footer from './Footer'
 import Landing from './Landing'
 import Training from './Training'
 import Practice from './Practice'
+import Results from './Results'
 import {createTheme, ThemeProvider} from '@mui/material/styles'
 
 import UserContext from "./UserContext";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/practice" element={<Practice/>} />
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/results" element={<Results/>} />
           </Routes>
       </Router>
       <Footer/>
