@@ -36,7 +36,7 @@ export default function Practice() {
                 <Button size="large" variant="contained" onClick={() => handleButtonClick('live')}>Live Video</Button>
             </Grid>
             <Grid xs={5} md={6}>
-                <Button size="large" variant="contained">View Results</Button>
+                <Button size="large" variant="contained" href='/results'>View Results</Button>
             </Grid>
             <Grid xs={5} md={6}>
                 <Button size="large" variant="contained">Feedback</Button>

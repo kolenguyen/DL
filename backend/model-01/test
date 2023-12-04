@@ -1,0 +1,30 @@
+from tensorflow.keras.models import load_model
+import numpy as np 
+import sys, os, cv2
+from PIL import Image
+from keras.models import model_from_json
+
+json_file = open('model-training/model.json', 'r')
+loaded_model_json = json_file.read()
+json_file.close()
+model = model_from_json(loaded_model_json)
+model.load_weights('model-training/model.h5')
+model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+# model = load_model("model-training/model.h5")
+# print(os.path.exists("model-training/model.h5"))
+img_path = "m.jpeg"
+img = Image.open(img_path)
+# print(type(img))
+numpy_array = np.asarray(img)
+gimage = cv2.cvtColor(numpy_array, cv2.COLOR_RGB2GRAY)
+# cv2.imshow("BGR Image", gimage)
+image28 = cv2.resize(gimage, (28, 28))
+imagere = image28.reshape(1, 28, 28, 1)  # Reshape to the expected input shape
+
+# Predict the ASL letter
+output = {i: chr(i + 65) for i in range(25)}
+prediction = model.predict(imagere)
+predicted_class = np.argmax(prediction, axis=-1)  # Find the class with the highest probability
+predicted_letter = output[predicted_class[0]]
+print(predicted_class)
+print(predicted_letter)

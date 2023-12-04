@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import LoginForm from './LoginForm';
@@ -6,67 +6,34 @@ import Grid from '@mui/material/Grid'; // Import Grid to center the form
 import Paper from '@mui/material/Paper'; // Import Paper for the background square
 
 const LoginPage = () => {
-  const handleLogin = async(credentials) => {
-    // Handle authentication logic here (e.g., send a request to the server)
-    console.log('Login credentials:', credentials);
-    const url = 'http://127.0.0.1:5000/auth/login';
-    console.log(url);
-      try {
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            // Add any additional headers if needed
-          },
-          body: JSON.stringify({
-            username: 'john7',
-            password: 'john',
-            // Add your data here
-          }),
-        });
-    
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-    
-        const data = await response.json();
-        console.log('Response data:', data);
-        console.log('Yes')
-      } catch (error) {
-        console.error('Error:', error.message);
-      }
-  }
-  
-  // const handleLogin= async () => {
-  //   const url = 'http://localhost:5000/api/login';
-  //   console.log(url);
-  //     try {
-  //       const response = await fetch(url, {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           // Add any additional headers if needed
-  //         },
-  //         body: JSON.stringify({
-  //           username: 'john',
-  //           password: 'john7',
-  //           // Add your data here
-  //         }),
-  //       });
-    
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-    
-  //       const data = await response.json();
-  //       console.log('Response data:', data);
-  //       console.log('Yes')
-  //     } catch (error) {
-  //       console.error('Error:', error.message);
-  //     }
-  //   };;
+  const [loginError, setLoginError] = useState('');
 
-  
+  const handleLogin = async (credentials) => {
+    try {
+      console.log(credentials)
+      // Simulate a request to the server for authentication
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      if (!response.ok) {
+        throw new Error('Invalid credentials');
+      }
+
+      // If authentication is successful, you can redirect or perform other actions
+      console.log('Login successful!');
+      setLoginError('');
+      history.push('/training');
+    } catch (error) {
+      // Handle authentication error
+      console.error('Authentication error:', error.message);
+      setLoginError('Invalid username or password');
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -76,7 +43,7 @@ const LoginPage = () => {
             Login
           </Typography>
         </Grid>
-        <LoginForm handleLogin={handleLogin} />
+        <LoginForm handleLogin={handleLogin} loginError={loginError} />
       </Paper>
 
     </Container>

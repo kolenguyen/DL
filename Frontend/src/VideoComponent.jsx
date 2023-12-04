@@ -3,16 +3,7 @@ import React, { useState, useRef } from 'react';
 
 const VideoComponent = ({ videoURL  }) => {
   const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  const togglePlay = () => {
-    if (isPlaying) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
 
   return (
     <div>
@@ -27,9 +18,6 @@ const VideoComponent = ({ videoURL  }) => {
         title="YouTube Video"
       ></iframe>
       <div>
-        <button onClick={togglePlay}>
-          {isPlaying ? 'Pause' : 'Play'}
-        </button>
       </div>
     </div>
   );
